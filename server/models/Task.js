@@ -23,7 +23,7 @@ let taskSchema = new Schema({
         required:true,
     },
     dateAndTime:{
-        type:String,
+        type:Date,
         required:true
     }
 },
@@ -31,6 +31,6 @@ let taskSchema = new Schema({
     timestamps: true,
 })
 
-taskSchema.index({ dateAndTime: 1 }, { expireAfterSeconds: 0 });
+taskSchema.index({ dateAndTime: 0 }, { expireAfterSeconds: 0 });
 
 module.exports = mongoose.model('Task', taskSchema)

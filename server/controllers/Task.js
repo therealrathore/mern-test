@@ -40,7 +40,42 @@ const getAllTask = async(req, res) => {
   }
 }
 
+
+const getTask = async(req, res) => {
+  try {
+    const {userID, taskID} = req.body;
+
+    const data = await Task.findOne({userID,_id:taskID})
+
+    res.status(200).json({success:true, data:data})
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+const updateTask = async(req, res) => {
+  try{
+
+    const {taskName, description, dateAndTime, userID, taskID} = req.body;
+    let data = await Task.findOne({userID,_id:taskID})
+
+    data.taskName = taskName;
+    data.description = description;
+    data.dateAndTime = dateAndTime;
+
+    const updated = await data.save();
+    console.log(updated)
+
+    res.status(200).json({success:true, message:"Task updated successfully!"})
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 module.exports = {
   create,
-  getAllTask
+  getAllTask,
+  getTask,
+  updateTask
 }

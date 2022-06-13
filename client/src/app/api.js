@@ -17,3 +17,11 @@ export const createTask = async (data) => {
 export const getAllTasks = async () => {
     return await axios.post(`${url}/task/get-all-task`)
 }
+
+export const getTasks = async (data) => {
+    return await axios.post(`${url}/task/get-task`, data)
+}
+
+export const updateTask = async(data) => {
+   return await axios.post(`${url}/task/update`, data)
+}

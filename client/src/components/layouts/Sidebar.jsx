@@ -1,5 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
+import {NotificationManager} from 'react-notifications';
+import { MainContextState } from '../../app/Context';
+
 const Sidebar = () => {
 
 	const [sidebarClass, setSidebarClass] = useState('sidebar')
@@ -8,7 +11,9 @@ const Sidebar = () => {
 	const navigate = useNavigate()
 
 	var classId = JSON.parse(localStorage.getItem('classId'));
+
     var [activeLink, setActiveLink] = useState(classId ? classId : 1)
+	const {username} = MainContextState();
 	
 	const sidebarFnc = () => {
 
@@ -26,7 +31,11 @@ const Sidebar = () => {
 
 	const logout = () => {
 		localStorage.clear()
-		window.location.href="/"
+		NotificationManager.success('','Logout successfully!',800)
+		setTimeout(() => {
+			window.location.href="/"
+		},1000)
+		
 	}
 
 
@@ -43,12 +52,12 @@ const Sidebar = () => {
 			icon:'bx bx-add-to-queue',
 			url:'/create/task'
 		},
-		{
-			id:3,
-			name:'Task List',
-			icon:'bx bx-list-ul',
-			url:'/task/list'
-		}
+		// {
+		// 	id:3,
+		// 	name:'Task List',
+		// 	icon:'bx bx-list-ul',
+		// 	url:'/task/list'
+		// }
 	]
 
 	var handleClick = id => {
@@ -56,12 +65,15 @@ const Sidebar = () => {
 	    setActiveLink(id);
 	};
 
+	useEffect(() => {
+		setActiveLink(classId)
+	},[classId])
 
 	return(
 		<div className={sidebarClass}>
 		    <div className="logo-details">
-		        <i className='bx bxl-c-plus-plus icon'></i>
-		        <div className="logo_name">CodingLab</div>
+		        <i className='bx bx-task icon'></i>
+		        <div className="logo_name">Task Manage</div>
 		        <i onClick={sidebarFnc} className={menuClass} id="btn" ></i>
 		    </div>
 		    <ul className="nav-list">
@@ -80,10 +92,10 @@ const Sidebar = () => {
 		            <div className="profile-details">
 		                <img src="../logo192.png" alt="profileImg" />
 		                <div className="name_job">
-		                    <div className="name">Prem Shahi</div>
+		                    <div className="name">{username ? username : ''}</div>
 		                </div>
 		            </div>
-		            <i className='bx bx-log-out' onClick={logout} id="log_out" ></i>
+		            <i className='bx bx-log-out' style={{cursor:'pointer'}} onClick={logout} id="log_out" ></i>
 		        </li>
 		    </ul>
 		</div>

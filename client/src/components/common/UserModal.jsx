@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import {register} from '../../app/api'
 import {useNavigate} from 'react-router-dom'
+import {NotificationManager} from 'react-notifications';
+
 const UserModal = () => {
 	
 	const [username, setUsername] = useState()
@@ -16,7 +18,10 @@ const UserModal = () => {
 		if(data?.success === true){
 			localStorage.setItem('auth', JSON.stringify({username:data?.data?.username,userID:data?.data?._id, isAuth:true}))
 			//navigate('/home')
-			window.location.href="/home"
+			NotificationManager.success('','Login successfully!',800)
+			setTimeout(() => {
+				window.location.href="/home"
+			},1000)
 		}
 		
 	}

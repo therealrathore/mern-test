@@ -44,7 +44,7 @@ const Pagination = props => {
                         return (<a  href="#" key={pageNumber+1}>&#8230;</a>)
                     }
 
-                    return (<a href="#" onClick={() => onPageChange(pageNumber)} className={`${pageNumber === currentPage ? 'active' : ''}`}>{pageNumber}</a>)
+                    return (<a href="#" key={pageNumber+1} onClick={() => onPageChange(pageNumber)} className={`${pageNumber === currentPage ? 'active' : ''}`}>{pageNumber}</a>)
                     }
                 )
             }

@@ -1,15 +1,16 @@
 import Datetime from 'react-datetime';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "react-datetime/css/react-datetime.css";
-import {createTask} from '../../app/api'
+import {getTasks, updateTask} from '../../app/api'
 import moment from 'moment'
 import TaskForm from './TaskForm'
-import {useNavigate} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import {NotificationManager} from 'react-notifications';
 import { MainContextState } from '../../app/Context';
 
-const CreateTask = () => {
+const UpdateTask = () => {
 
+	let { taskID } = useParams();
 	const navigate = useNavigate()
 	const [taskName, setTaskName] = useState()
 	const [description, setDescription] = useState()
@@ -31,24 +32,38 @@ const CreateTask = () => {
 		} else if(dateAndTime < today){
 			setError((prevState) => ({ ...prevState, ['dateAndTime']: 'Date and time should be greater than today!' }))
 		} else {
-			const {data} = await createTask({taskName,description,dateAndTime, userID})
+			const {data} = await updateTask({taskName,description,dateAndTime,userID,taskID})
 			setTaskName('')
 			setDescription('')
 			setDateAndTime('')
 			if(data?.success){
 				console.log(data)
-				NotificationManager.success('','Task created successfully!',1500)
+				NotificationManager.success('','Task updated successfully!',1500)
 				setTimeout(() => {
 					localStorage.setItem('classId', JSON.stringify(1))
 					navigate('/home')
-				},2000)
+				},1500)
 			}
 		}
 	}
 
+	useEffect(()=>{
+		const getTask = async () => {
+			
+			const {data} = await getTasks({userID, taskID})
+			if(data?.success){
+				const {taskName, description, dateAndTime} = data?.data
+				setTaskName(taskName)
+				setDescription(description)
+				setDateAndTime(moment(dateAndTime).format("YYYY-MM-DDTH:mm"))
+			}
+		}
+		getTask()
+	},[])
 	return(
 		<section className="home-section">
-      	  	<div className="text">Create Task</div>
+
+      	  	<div className="text">Update Task</div>
       	  	<div className="card-body">
       	  		<TaskForm 
 	      	  		setDescription={setDescription}
@@ -56,9 +71,9 @@ const CreateTask = () => {
 	      	  		setTaskName={setTaskName} 
 	      	  		taskName={taskName}
 	      	  		description={description}
-	      	  		dateAndTime={dateAndTime}
+	      	  		dateAndTime={moment(dateAndTime).format("YYYY-MM-DDTH:mm")}
 	      	  		error={error}
-	      	  		title={'Create Task'}
+	      	  		title={'Update Task'}
 	      	  		submitTask={submitTask}
       	  		/>
       	  	</div>
@@ -66,4 +81,4 @@ const CreateTask = () => {
 	)
 }
 
-export default CreateTask
+export default UpdateTask
