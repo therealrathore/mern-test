@@ -21,7 +21,6 @@ export const createTask = async (data) => {
    return await axios.post(`${url}/task/create`, data, headers)
 }
 
-
 export const getAllTasks = async () => {
     return await axios.post(`${url}/task/get-all-task`)
 }
@@ -32,4 +31,8 @@ export const getTasks = async (data) => {
 
 export const updateTask = async(data) => {
    return await axios.post(`${url}/task/update`, data, headers)
+}
+
+export const getUsersTasks = async (data) => {
+   return await axios.post(`${url}/task/get-users-task`, data, headers)
 }

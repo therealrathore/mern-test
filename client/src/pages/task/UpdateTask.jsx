@@ -1,4 +1,3 @@
-import Datetime from 'react-datetime';
 import React, {useState, useEffect} from 'react'
 import "react-datetime/css/react-datetime.css";
 import {getTasks, updateTask} from '../../app/api'
@@ -22,22 +21,20 @@ const UpdateTask = () => {
 	const {userID} = MainContextState();
 	
 	const submitTask = async () => {
-
 		if(!taskName) {
-			setError((prevState) => ({ ...prevState, ['taskName']: 'Task name is required!' }))
+			setError((prevState) => ({ ...prevState, taskName: 'Task name is required!' }))
 		} else if(!description){
-			setError((prevState) => ({ ...prevState, ['description']: 'Description is required!' }))
+			setError((prevState) => ({ ...prevState, description: 'Description is required!' }))
 		} else if(!dateAndTime){
-			setError((prevState) => ({ ...prevState, ['dateAndTime']: 'Date and time is required!' }))
+			setError((prevState) => ({ ...prevState, dateAndTime: 'Date and time is required!' }))
 		} else if(dateAndTime < today){
-			setError((prevState) => ({ ...prevState, ['dateAndTime']: 'Date and time should be greater than today!' }))
+			setError((prevState) => ({ ...prevState, dateAndTime: 'Date and time should be greater than today!' }))
 		} else {
 			const {data} = await updateTask({taskName,description,dateAndTime,userID,taskID})
 			setTaskName('')
 			setDescription('')
 			setDateAndTime('')
 			if(data?.success){
-				
 				NotificationManager.success('','Task updated successfully!',1500)
 				setTimeout(() => {
 					localStorage.setItem('classId', JSON.stringify(1))
@@ -58,10 +55,10 @@ const UpdateTask = () => {
 			}
 		}
 		getTask()
-	},[])
+	},[userID, taskID])
+
 	return(
 		<section className="home-section">
-
       	  	<div className="text">Update Task</div>
       	  	<div className="card-body">
       	  		<TaskForm 

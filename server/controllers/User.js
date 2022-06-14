@@ -30,11 +30,9 @@ const getAllUsers = async (req, res) => {
 
   try {
     const { username } = req.body;
-   
-    //let user = await User.find();
-  
+
     var user =  await User.aggregate([
-            // { $sort : { _id : -1 } },
+            { $sort : { _id : -1 } },
             {
                 "$lookup": {
                     "from": "tasks",
@@ -50,8 +48,11 @@ const getAllUsers = async (req, res) => {
                     "path": "$task_info",
                     "preserveNullAndEmptyArrays": true
                 }
-            }
+            },
+            {$sort: {"tasks.dateAndTime": -1}},
+
         ])
+
     if (user) {
       return res
         .status(200)

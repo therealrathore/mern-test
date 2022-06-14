@@ -1,4 +1,3 @@
-import Datetime from 'react-datetime';
 import React, {useState} from 'react'
 import "react-datetime/css/react-datetime.css";
 import {createTask} from '../../app/api'
@@ -23,13 +22,13 @@ const CreateTask = () => {
 	const submitTask = async () => {
 
 		if(!taskName) {
-			setError((prevState) => ({ ...prevState, ['taskName']: 'Task name is required!' }))
+			setError((prevState) => ({ ...prevState, taskName: 'Task name is required!' }))
 		} else if(!description){
-			setError((prevState) => ({ ...prevState, ['description']: 'Description is required!' }))
+			setError((prevState) => ({ ...prevState, description: 'Description is required!' }))
 		} else if(!dateAndTime){
-			setError((prevState) => ({ ...prevState, ['dateAndTime']: 'Date and time is required!' }))
+			setError((prevState) => ({ ...prevState, dateAndTime: 'Date and time is required!' }))
 		} else if(dateAndTime < today){
-			setError((prevState) => ({ ...prevState, ['dateAndTime']: 'Date and time should be greater than today!' }))
+			setError((prevState) => ({ ...prevState, dateAndTime: 'Date and time should be greater than today!' }))
 		} else {
 			const {data} = await createTask({taskName,description,dateAndTime, userID})
 			setTaskName('')

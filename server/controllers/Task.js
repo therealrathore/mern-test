@@ -77,9 +77,23 @@ const updateTask = async(req, res) => {
   }
 }
 
+
+const getUsersTask = async(req, res) => {
+  try {
+    
+    const data = await Task.find({userID:req.body.userID}).sort({formID:-1})
+
+    res.status(200).json({success:true, data:data})
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 module.exports = {
   create,
   getAllTask,
   getTask,
-  updateTask
+  updateTask,
+  getUsersTask
 }

@@ -83,7 +83,7 @@ const UserList = () => {
 							        	<p style={{display:tID === id ? '' : 'none'}}>
 							        		{user?.task_info?.dateAndTime && 
 							        			moment(user?.task_info?.dateAndTime)
-							        			.format('DD-MM-YYYY h:mm a')
+							        			.format('DD-MM-YYYY h:mm A')
 							        		}
 							        	</p>
 							        </td>

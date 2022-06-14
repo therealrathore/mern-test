@@ -23,7 +23,7 @@ const TaskModal = ({setShow, show, data}) => {
 		          		</div>
 		          		<div style={{display:'flex'}}>
 		          			<p style={{fontWeight:'bold'}}>Date and Time : </p>
-		          			<p style={{paddingLeft:2}}>{data?.dateAndTime && moment(data?.dateAndTime).format('DD-MM-YYYY h:mm a')}</p>
+		          			<p style={{paddingLeft:2}}>{data?.dateAndTime && moment(data?.dateAndTime).format('DD-MM-YYYY h:mm A')}</p>
 		          		</div>
 		        	</div>
 		      	</div>

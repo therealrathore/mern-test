@@ -1,13 +1,11 @@
-import React,{useState, useEffect} from 'react'
-import {register} from '../../app/api'
-import {useNavigate} from 'react-router-dom'
+import React,{useState} from 'react'
+import {register} from '../../app/api'	
 import {NotificationManager} from 'react-notifications';
 
 const UserModal = () => {
 	
 	const [username, setUsername] = useState()
 	const [error, setError] = useState('')
-	const navigate = useNavigate()
 	
 	const registerApiCall = async () => {
 
@@ -24,7 +22,6 @@ const UserModal = () => {
 				window.location.href="/home"
 			},1000)
 		}
-		
 	}
 
 
@@ -35,7 +32,7 @@ const UserModal = () => {
 		     	<div className="modal-content">
 		        	<div className="modal-header">
 		          		<h4 className="modal-title">Authentication</h4>
-		        	</div>
+		        	</	div>
 		        	<div className="modal-body">
 		          		<input type="text" placeholder="Enter Username" onChange={(e) => setUsername(e.target.value)} />
 		        		<p>{error && error}</p>

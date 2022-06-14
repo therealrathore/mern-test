@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {NotificationManager} from 'react-notifications';
 import { MainContextState } from '../../app/Context';
 
@@ -8,7 +8,7 @@ const Sidebar = () => {
 	const [sidebarClass, setSidebarClass] = useState('sidebar')
 	const [menuClass, setMenuClass] = useState('bx bx-menu')
 	const [menu, setMenu] = useState(false)
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 
 	var classId = JSON.parse(localStorage.getItem('classId'));
 
@@ -31,11 +31,10 @@ const Sidebar = () => {
 
 	const logout = () => {
 		localStorage.clear()
-		NotificationManager.success('','Logout successfully!',800)
+		NotificationManager.success('',`You've been logged out! `,800)
 		setTimeout(() => {
 			window.location.href="/"
 		},1000)
-		
 	}
 
 
@@ -52,12 +51,12 @@ const Sidebar = () => {
 			icon:'bx bx-add-to-queue',
 			url:'/create/task'
 		},
-		// {
-		// 	id:3,
-		// 	name:'Task List',
-		// 	icon:'bx bx-list-ul',
-		// 	url:'/task/list'
-		// }
+		{
+			id:3,
+			name:'My Task List',
+			icon:'bx bx-list-ul',
+			url:'/task/list'
+		}
 	]
 
 	var handleClick = id => {
