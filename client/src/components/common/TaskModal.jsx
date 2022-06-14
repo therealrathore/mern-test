@@ -31,4 +31,5 @@ const TaskModal = ({setShow, show, data}) => {
 		</div>
 	)
 }
+
 export default TaskModal

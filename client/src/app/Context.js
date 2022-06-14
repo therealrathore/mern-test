@@ -5,11 +5,11 @@ const Context = ({children}) => {
    
     const [username, setUsername] = useState()
     const [userID, setUserID] = useState()
-    
+
     useEffect(() => {
-       const {userID, username} = JSON.parse(localStorage.getItem('auth'));
-       setUserID(userID)
-       setUsername(username)
+       const auth = JSON.parse(localStorage.getItem('auth'));
+       setUserID(auth?.userID)
+       setUsername(auth?.username)
     },[])
 
     return (

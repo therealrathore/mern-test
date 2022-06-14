@@ -37,7 +37,7 @@ const UpdateTask = () => {
 			setDescription('')
 			setDateAndTime('')
 			if(data?.success){
-				console.log(data)
+				
 				NotificationManager.success('','Task updated successfully!',1500)
 				setTimeout(() => {
 					localStorage.setItem('classId', JSON.stringify(1))
@@ -49,7 +49,6 @@ const UpdateTask = () => {
 
 	useEffect(()=>{
 		const getTask = async () => {
-			
 			const {data} = await getTasks({userID, taskID})
 			if(data?.success){
 				const {taskName, description, dateAndTime} = data?.data

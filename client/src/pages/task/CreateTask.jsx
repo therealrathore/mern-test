@@ -36,7 +36,7 @@ const CreateTask = () => {
 			setDescription('')
 			setDateAndTime('')
 			if(data?.success){
-				console.log(data)
+				
 				NotificationManager.success('','Task created successfully!',1500)
 				setTimeout(() => {
 					localStorage.setItem('classId', JSON.stringify(1))

@@ -1,6 +1,14 @@
 import axios from 'axios'
 var url = 'http://localhost:3002/api/v1'
 
+const token = JSON.parse(localStorage.getItem('token'));
+
+const headers =  {
+   headers:{   
+    'token' : token
+  }
+}
+
 export const register = async (data) => {
    return await axios.post(`${url}/register`, data);
 }
@@ -10,7 +18,7 @@ export const getAllUsers = async () => {
 }
 
 export const createTask = async (data) => {
-   return await axios.post(`${url}/task/create`, data)
+   return await axios.post(`${url}/task/create`, data, headers)
 }
 
 
@@ -23,5 +31,5 @@ export const getTasks = async (data) => {
 }
 
 export const updateTask = async(data) => {
-   return await axios.post(`${url}/task/update`, data)
+   return await axios.post(`${url}/task/update`, data, headers)
 }

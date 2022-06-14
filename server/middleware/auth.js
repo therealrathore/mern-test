@@ -1,17 +1,19 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/User.js");
+const User  = require("../models/User.js");
+const { config } =  require("dotenv");
+config({ path: "./config/config.env"});
 
 const isAuthenticated = async (req, res, next) => {
   try {
-    const { token } = req.cookies;
-
+    const { token } = req.headers;
+    console.log(token)
     if (!token) {
       return res.status(401).json({ success: false, message: "Login First" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = await User.findById(decoded._id);
+    
+    req.user = await User.findById({_id:decoded.userID});
 
     next();
   } catch (error) {
@@ -19,4 +21,4 @@ const isAuthenticated = async (req, res, next) => {
   }
 };
 
-module.exports = isAuthenticated
+module.exports = {isAuthenticated}

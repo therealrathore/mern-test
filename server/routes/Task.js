@@ -6,13 +6,9 @@ const { isAuthenticated } = require("../middleware/auth.js");
 
 const router = express.Router();
 
-router.route("/create").post(create);
+router.route("/create").post(isAuthenticated, create);
 router.route("/get-all-task").post(getAllTask)
 router.route("/get-task").post(getTask)
-router.route("/update").post(updateTask)
-// router
-//   .route("/task/:taskId")
-//   .get(isAuthenticated, updateTask)
-//   .delete(isAuthenticated, removeTask);
+router.route("/update").post(isAuthenticated, updateTask)
 
 module.exports = router;

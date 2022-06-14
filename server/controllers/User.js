@@ -1,22 +1,25 @@
+require('dotenv').config()
 const User  = require("../models/User.js");
-const Task = require("../models/Task.js")
+const Task = require("../models/Task.js");
+const {createToken} = require("../helper/createToken")
 const register = async (req, res) => {
   try {
     const { username } = req.body;
-    console.log(username)
     let user = await User.findOne({ username });
 
     if (user) {
+      
+      const token = createToken(user)
       return res
         .status(200)
-        .json({ success: true, data:user });
+        .json({ success: true, data:user, token:token });
     }
 
     user = await User.create({ username });
-
+    const token = createToken(user)
     return res
         .status(200)
-        .json({ success: true, data:user });
+        .json({ success: true, data:user, token:token });
 
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

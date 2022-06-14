@@ -3,7 +3,7 @@ const moment = require("moment")
 const create = async (req, res) => {
   try {
     const { taskName, description, dateAndTime, userID } = req.body;
-    
+    console.log(req.body)
     const taskRes = await Task.findOne().sort({formID:-1})
    
     let formID;
@@ -58,16 +58,20 @@ const updateTask = async(req, res) => {
   try{
 
     const {taskName, description, dateAndTime, userID, taskID} = req.body;
+
     let data = await Task.findOne({userID,_id:taskID})
+    if (data) {
+      data.taskName = taskName;
+      data.description = description;
+      data.dateAndTime = dateAndTime;
 
-    data.taskName = taskName;
-    data.description = description;
-    data.dateAndTime = dateAndTime;
-
-    const updated = await data.save();
-    console.log(updated)
-
-    res.status(200).json({success:true, message:"Task updated successfully!"})
+      const updated = await data.save();
+      res.status(200).json({success:true, message:"Task updated successfully!"})
+    } else {
+      res.status(200).json({success:false, message:"Task updated failed!"})
+    }
+  
+    
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
