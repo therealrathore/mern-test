@@ -1,4 +1,4 @@
-import React, {useState,createContext, useContext, useMemo} from 'react'
+import React, {useState,createContext, useContext, useEffect} from 'react'
 const MainContext = createContext()
 
 const Context = ({children}) => {
@@ -6,7 +6,7 @@ const Context = ({children}) => {
     const [username, setUsername] = useState()
     const [userID, setUserID] = useState()
 
-    useMemo(() => {
+    useEffect(() => {
        const auth = JSON.parse(localStorage.getItem('auth'));
        setUserID(auth?.userID)
        setUsername(auth?.username)

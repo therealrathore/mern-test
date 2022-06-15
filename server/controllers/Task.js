@@ -3,7 +3,7 @@ const moment = require("moment")
 const create = async (req, res) => {
   try {
     const { taskName, description, dateAndTime, userID } = req.body;
-    console.log(req.body)
+    
     const taskRes = await Task.findOne().sort({formID:-1})
    
     let formID;
@@ -18,7 +18,6 @@ const create = async (req, res) => {
     } else {
       formNumber = `${currentDate}_${taskRes?.formID+1}`
       formID = taskRes?.formID+1
-      console.log('hi')
     }
     
     const created = await Task.create({ taskName,userID, description, dateAndTime, formNumber, formID });
@@ -80,7 +79,7 @@ const updateTask = async(req, res) => {
 
 const getUsersTask = async(req, res) => {
   try {
-    
+
     const data = await Task.find({userID:req.body.userID}).sort({formID:-1})
 
     res.status(200).json({success:true, data:data})

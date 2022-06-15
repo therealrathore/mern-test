@@ -30,6 +30,7 @@ const CreateTask = () => {
 		} else if(dateAndTime < today){
 			setError((prevState) => ({ ...prevState, dateAndTime: 'Date and time should be greater than today!' }))
 		} else {
+			console.log(dateAndTime)
 			const {data} = await createTask({taskName,description,dateAndTime, userID})
 			setTaskName('')
 			setDescription('')

@@ -12,12 +12,11 @@ const UserList = () => {
 	const [userList, setUserList] = useState([])
 	const [loader, setLoader] = useState(false)
 	const [tID, setTID] = useState()
-	const [showTask, setShowTask] = useState()
 	const [show, setShow] = useState(false)
 	const [taskData, setTaskData] = useState()
 
 	const {userID} = MainContextState();
-	
+
 	const navigate = useNavigate()
 	useEffect(() => {
 
